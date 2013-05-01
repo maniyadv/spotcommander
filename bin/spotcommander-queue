@@ -1,0 +1,70 @@
+#!/usr/bin/env php
+
+<?php
+
+/*
+
+Copyright 2013 Ole Jon Bjørkum
+
+This file is part of SpotCommander.
+
+SpotCommander is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+SpotCommander is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SpotCommander.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+chdir(__DIR__);
+
+require_once('../main.php');
+
+$qdbus = daemon_qdbus_select();
+
+while(true)
+{
+	if(spotify_is_running())
+	{
+		$track = get_db_rows('queue', "SELECT id, uri FROM queue ORDER BY id LIMIT 1", array('id', 'uri'));
+
+		if(!empty($track))
+		{
+			$track = $track[1];
+
+			$id = $track['id'];
+			$uri = $track['uri'];
+
+			if(!isset($nowplaying)) $nowplaying = shell_exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.GetMetadata');
+
+			if($nowplaying != shell_exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.GetMetadata'))
+			{
+				db_exec('queue', "DELETE FROM queue WHERE id = '$id'");
+				$nowplaying_before = shell_exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.GetMetadata');
+				exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.OpenUri ' . $uri);
+
+				for($i = 0; $i < 4; $i++)
+				{
+					$nowplaying_after = shell_exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.GetMetadata');
+					if($nowplaying_after != $nowplaying_before) break;
+					usleep(250000);
+				}
+
+				sleep(1);
+			}
+		}
+
+		$nowplaying = shell_exec($qdbus . ' org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.GetMetadata');
+	}
+
+	sleep(2);
+}
+
+?>
