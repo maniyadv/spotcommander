@@ -1,0 +1,120 @@
+/*
+
+Copyright 2013 Ole Jon Bjørkum
+
+This file is part of SpotCommander.
+
+SpotCommander is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+SpotCommander is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SpotCommander.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+/* Body */
+
+body
+{
+	margin: 24px;
+	background-color: #eee;
+	font-family: "helvetica neue", "helvetica", "arial", "liberation sans", "sans-serif";
+	font-size: 14px;
+	cursor: default;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	content-zooming: none;
+	-webkit-content-zooming: none;
+	-moz-content-zooming: none;
+	-ms-content-zooming: none;
+	touch-callout: none;
+	-webkit-touch-callout: none;
+	-moz-touch-callout: none;
+	-ms-touch-callout: none;
+	tap-highlight-color: rgba(170, 170, 170, 0.5);
+	-webkit-tap-highlight-color: rgba(170, 170, 170, 0.5);
+	-moz-tap-highlight-color: rgba(170, 170, 170, 0.5);
+	-ms-tap-highlight-color: rgba(170, 170, 170, 0.5);
+}
+
+/* Divisions */
+
+div
+{
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+div#box_div
+{
+	display: table;
+	margin: 8px auto 0 auto;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0px 4px 12px #606060;
+	-webkit-box-shadow: 0px 4px 12px #606060;
+}
+
+div#box_inner_div
+{
+	display: table-cell;
+	max-width: 480px;
+}
+
+div#box_title_div
+{
+	padding: 12px 10px;
+	border-bottom: 2px solid #669900;
+	font-size: 16px;
+	color: #669900;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+div#box_body_div
+{
+	padding: 16px 10px;
+}
+
+div#box_body_div > div:first-child
+{
+	margin-bottom: 16px;
+}
+
+div#box_buttons_div
+{
+	display: table;
+	width: 100%;
+}
+
+div#box_buttons_div > div
+{
+	display: table-cell;
+	width: 33%;
+	padding: 12px 0;
+	border-top: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	text-align: center;
+}
+
+div#box_buttons_div > div:last-child
+{
+	border-right: 0;
+}
+
+/* Links */
+
+a
+{
+	color: #000;
+	text-decoration: none;
+}
