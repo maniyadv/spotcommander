@@ -27,7 +27,7 @@ require_once('main.php');
 
 <!DOCTYPE html>
 
-<html manifest="cache-manifest.appcache">
+<html>
 
 <head>
 
@@ -39,36 +39,43 @@ require_once('main.php');
 <noscript><meta http-equiv="refresh" content="0; url=error.php?code=6"></noscript>
 
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="msapplication-tap-highlight" content="no">
+<meta name="msapplication-TileImage" content="img/favicon-144.png?<?php echo project_serial; ?>">
+<meta name="msapplication-TileColor" content="#303030">
 
-<script src="js/jquery.js"></script>
-<script src="js/jquery-cookie.js"></script>
-<script src="js/jquery-base64.js"></script>
-<script src="js/jquery-easing.js"></script>
-<script src="js/modernizr.js"></script>
-<script src="js/functions.js"></script>
-<script src="js/main.js"></script>
+<script src="js/jquery.js?<?php echo project_serial; ?>"></script>
+<script src="js/jquery-cookie.js?<?php echo project_serial; ?>"></script>
+<script src="js/jquery-base64.js?<?php echo project_serial; ?>"></script>
+<script src="js/jquery-easing.js?<?php echo project_serial; ?>"></script>
+<script src="js/modernizr.js?<?php echo project_serial; ?>"></script>
+<script src="js/functions.js?<?php echo project_serial; ?>"></script>
+<script src="js/main.js?<?php echo project_serial; ?>"></script>
 
-<link rel="shortcut icon" href="img/favicon.ico">
-<link rel="icon" href="img/favicon-128.png" sizes="128x128">
+<link rel="shortcut icon" href="img/favicon.ico?<?php echo project_serial; ?>">
+<link rel="shortcut icon" href="img/favicon-128.png?<?php echo project_serial; ?>" sizes="128x128">
+<link rel="shortcut icon" href="img/favicon-196.png?<?php echo project_serial; ?>" sizes="196x196">
 
-<link rel="apple-touch-icon" href="img/touch-icon-57.png">
-<link rel="apple-touch-icon" href="img/touch-icon-72.png" sizes="72x72">
-<link rel="apple-touch-icon" href="img/touch-icon-114.png" sizes="114x114">
-<link rel="apple-touch-icon" href="img/touch-icon-144.png" sizes="144x144">
-<link rel="apple-touch-startup-image" href="img/splash-iphone-old.png" media="screen and (device-width: 320px) and (device-height: 480px)">
-<link rel="apple-touch-startup-image" href="img/splash-iphone-old-2x.png" media="screen and (device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
-<link rel="apple-touch-startup-image" href="img/splash-iphone-new.png" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
-<link rel="apple-touch-startup-image" href="img/splash-ipad-portrait.png" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="img/splash-ipad-portrait-2x.png" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)">
-<link rel="apple-touch-startup-image" href="img/splash-ipad-landscape.png" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="img/splash-ipad-landscape-2x.png" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-icon" href="img/touch-icon-57.png?<?php echo project_serial; ?>" sizes="57x57">
+<link rel="apple-touch-icon" href="img/touch-icon-72.png?<?php echo project_serial; ?>" sizes="72x72">
+<link rel="apple-touch-icon" href="img/touch-icon-76.png?<?php echo project_serial; ?>" sizes="76x76">
+<link rel="apple-touch-icon" href="img/touch-icon-114.png?<?php echo project_serial; ?>" sizes="114x114">
+<link rel="apple-touch-icon" href="img/touch-icon-120.png?<?php echo project_serial; ?>" sizes="120x120">
+<link rel="apple-touch-icon" href="img/touch-icon-144.png?<?php echo project_serial; ?>" sizes="144x144">
+<link rel="apple-touch-icon" href="img/touch-icon-152.png?<?php echo project_serial; ?>" sizes="152x152">
+<link rel="apple-touch-startup-image" href="img/splash-iphone-old.png?<?php echo project_serial; ?>" media="screen and (device-width: 320px) and (device-height: 480px)">
+<link rel="apple-touch-startup-image" href="img/splash-iphone-old-2x.png?<?php echo project_serial; ?>" media="screen and (device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="img/splash-iphone-new.png?<?php echo project_serial; ?>" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="img/splash-ipad-portrait.png?<?php echo project_serial; ?>" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="img/splash-ipad-portrait-2x.png?<?php echo project_serial; ?>" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)">
+<link rel="apple-touch-startup-image" href="img/splash-ipad-landscape.png?<?php echo project_serial; ?>" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape)">
+<link rel="apple-touch-startup-image" href="img/splash-ipad-landscape-2x.png?<?php echo project_serial; ?>" media="screen and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/style-images.css">
-<link rel="stylesheet" href="css/style-animations.css">
+<link rel="stylesheet" href="css/style.css?<?php echo project_serial; ?>">
+<link rel="stylesheet" href="css/style-images.css?<?php echo project_serial; ?>">
+<link rel="stylesheet" href="css/style-animations.css?<?php echo project_serial; ?>">
 
 <style></style>
 
@@ -80,7 +87,7 @@ require_once('main.php');
 <div id="top_actionbar_inner_div">
 <div id="top_actionbar_inner_left_div"><div><div title="Menu" class="actions_div" data-actions="show_menu" data-highlightclass="green_highlight" onclick="void(0)"><div class="img_div img_32_div menu_32_img_div"></div></div></div></div>
 <div id="top_actionbar_inner_vertical_line_div"><div></div></div>
-<div id="top_actionbar_inner_center_div"><div></div></div>
+<div id="top_actionbar_inner_center_div" class="actions_div" data-actions="scroll_to_top" onclick="void(0)"><div></div></div>
 <div id="top_actionbar_inner_right_div"><div></div></div>
 </div>
 <div id="top_actionbar_shadow_div"></div>
@@ -153,8 +160,8 @@ require_once('main.php');
 <div id="activity_div"></div>
 
 <div id="preload_div">
-<img id="cover_art_preload_img" src="img/album-24.png" alt="Image">
-<img id="nowplaying_cover_art_preload_img" src="img/album-24.png" alt="Image">
+<img id="cover_art_preload_img" src="img/album-24.png?<?php echo project_serial; ?>" alt="Image">
+<img id="nowplaying_cover_art_preload_img" src="img/album-24.png?<?php echo project_serial; ?>" alt="Image">
 </div>
 
 </body>

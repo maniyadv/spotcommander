@@ -32,7 +32,7 @@ $volume = 50;
 $artist = 'Unknown';
 $title = 'Spotify is not running';
 $album = 'Unknown';
-$cover_art = 'img/no-cover-art-640.png';
+$cover_art = 'img/no-cover-art-640.png?' . project_serial;
 $uri = '';
 $length = 'Unknown';
 $released = 'Unknown';
@@ -90,7 +90,7 @@ if(spotify_is_running())
 			{
 				$cover_art = $nowplaying['artUrl'];
 				$cover_art = str_replace(array('open.spotify.com', '/thumb/'), array('o.scdn.co', '/640/'), $cover_art);
-				$cover_art = (get_uri_type($cover_art) == 'cover_art') ? $cover_art : 'img/no-cover-art-640.png';
+				$cover_art = (get_uri_type($cover_art) == 'cover_art') ? $cover_art : 'img/no-cover-art-640.png?' . project_serial;
 			}
 
 			if(!empty($nowplaying['contentCreated']))

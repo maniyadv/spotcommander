@@ -80,7 +80,7 @@ function activityLoading()
 
 	hideDiv('div#activity_div');
 
-	scrollToTop();
+	scrollToTop(false);
 
 	clearTimeout(timeout_activity_loading);
 
@@ -101,8 +101,6 @@ function activityLoaded()
 
 	checkForDialogs();
 	checkForUpdates('auto');
-
-	if(!ua_is_standalone) scrollToTop();
 
 	var data = getActivityData();
 	var title = (typeof data.title == 'undefined') ? 'Unknown' : data.title;
@@ -754,7 +752,7 @@ function startRefreshNowplaying()
 
 	if(ua_supports_csstransitions && ua_supports_csstransforms3d)
 	{
-		$('div#nowplaying_cover_art_div').css('transition', '').css('transform', '').css('-webkit-transition', '').css('-webkit-transform', '').css('-moz-transition', '').css('-moz-transform', '').css('-o-transition', '').css('-o-transform', '').css('-ms-transition', '').css('-ms-transform', '');
+		$('div#nowplaying_cover_art_div').css('transition', '').css('transform', '').css('-webkit-transition', '').css('-webkit-transform', '').css('-moz-transition', '').css('-moz-transform', '').css('-ms-transition', '').css('-ms-transform', '');
 		$('div#nowplaying_cover_art_div').off(event_transitionend).removeClass('prepare_nowplaying_cover_art_animation show_nowplaying_cover_art_animation hide_nowplaying_cover_art_animation').addClass('hide_nowplaying_cover_art_animation');
 	}
 	else
@@ -820,10 +818,10 @@ function refreshNowplaying(type)
 
 			$('div#nowplaying_cover_art_div').data('uri', nowplaying.uri).attr('title', nowplaying.album+' ('+nowplaying.released+')');
 
-			$('img#nowplaying_cover_art_preload_img').attr('src', 'img/album-24.png').attr('src', nowplaying.cover_art).on('load error', function(event)
+			$('img#nowplaying_cover_art_preload_img').attr('src', 'img/album-24.png?'+project_serial).attr('src', nowplaying.cover_art).on('load error', function(event)
 			{
 				$(this).off('load error');
-				var cover_art = (event.type == 'load') ? nowplaying.cover_art : 'img/no-cover-art-640.png';
+				var cover_art = (event.type == 'load') ? nowplaying.cover_art : 'img/no-cover-art-640.png?'+project_serial;
 				$('div#nowplaying_cover_art_div').css('background-image', 'url("'+cover_art+'")');
 				if(type == 'manual') endRefreshNowplaying();
 			});
@@ -853,9 +851,14 @@ function refreshNowplaying(type)
 
 			highlightNowplayingListItem();
 
-			if(integrated_in_ubuntu_unity)
+			if(ua_is_android_app)
 			{
-				var ubuntu_unity_cover_art = (nowplaying.cover_art == 'img/no-cover-art-640.png') ? project_website+'img/ubuntu-unity-no-cover-art.png' : nowplaying.cover_art;
+				Android.JSsetSharedString('NOWPLAYING_ARTIST', nowplaying.artist);
+				Android.JSsetSharedString('NOWPLAYING_TITLE', nowplaying.title);
+			}
+			else if(integrated_in_ubuntu_unity)
+			{
+				var ubuntu_unity_cover_art = (nowplaying.cover_art == 'img/no-cover-art-640.png?'+project_serial) ? project_website+'img/ubuntu-unity-no-cover-art.png?'+project_serial : nowplaying.cover_art;
 				var ubuntu_unity_metadata = { title: nowplaying.title, album: nowplaying.album, artist: nowplaying.artist, artLocation: ubuntu_unity_cover_art }
 
 				ubuntu_unity.MediaPlayer.setTrack(ubuntu_unity_metadata);
@@ -1009,7 +1012,7 @@ function getCoverArt(uri)
 			}
 			else
 			{
-				$('img#cover_art_preload_img').attr('src', 'img/album-24.png').attr('src', xhr_data).on('load error', function(event)
+				$('img#cover_art_preload_img').attr('src', 'img/album-24.png?'+project_serial).attr('src', xhr_data).on('load error', function(event)
 				{
 					if(event.type == 'load')
 					{
@@ -1151,7 +1154,7 @@ function addPlaylists(uris)
 
 function confirmAddSpotifyPlaylists()
 {
-	showDialog({ title: 'Add from Spotify', body_class: 'dialog_message_div', body_text: 'You should only do this if your Spotify playlists are not listed automatically.<br><br>Continue?', button1: { text: 'No', keys : ['actions'], values: ['hide_dialog'] }, button2: { text: 'Yes', keys : ['actions'], values: ['hide_dialog add_spotify_playlists'] } });
+	showDialog({ title: 'Add from Spotify', body_class: 'dialog_message_div', body_text: 'This will add your playlists from Spotify. You may have to try several times.<br><br>Continue?', button1: { text: 'No', keys : ['actions'], values: ['hide_dialog'] }, button2: { text: 'Yes', keys : ['actions'], values: ['hide_dialog add_spotify_playlists'] } });
 }
 
 function addSpotifyPlaylists()
@@ -1426,7 +1429,7 @@ function setCss()
 	$('div#menu_div').data('cssleft', $('div#menu_div').css('left'));
 	$('div#nowplaying_div').data('cssbottom', $('div#nowplaying_div').css('bottom'));
 
-	$('style', 'head').append('.show_nowplaying_animation { transform: translate3d(0, -'+window_height+'px, 0); -webkit-transform: translate3d(0, -'+window_height+'px, 0); -moz-transform: translate3d(0, -'+window_height+'px, 0); -o-transform: translate3d(0, -'+window_height+'px, 0); -ms-transform: translate3d(0, -'+window_height+'px, 0); } .hide_nowplaying_animation { transform: translate3d(0, 0, 0); -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); }');
+	$('style', 'head').append('.show_nowplaying_animation { transform: translate3d(0, -'+window_height+'px, 0); -webkit-transform: translate3d(0, -'+window_height+'px, 0); -moz-transform: translate3d(0, -'+window_height+'px, 0); -ms-transform: translate3d(0, -'+window_height+'px, 0); } .hide_nowplaying_animation { transform: translate3d(0, 0, 0); -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); }');
 }
 
 function showDiv(div)
@@ -1522,9 +1525,19 @@ function blurTextInput()
 	$('input:text').blur();
 }
 
-function scrollToTop()
+function scrollToTop(animate)
 {
-	if($(window).scrollTop() != 1) window.scrollTo(0, 1);
+	if($(window).scrollTop() != 0)
+	{
+		if(animate)
+		{
+			$('html, body').animate({ scrollTop: 0 }, 250);
+		}
+		else
+		{
+			window.scrollTo(0, 0);
+		}
+	}
 }
 
 // Dialogs
@@ -1699,8 +1712,9 @@ function checkForDialogs()
 
 	if(settings_check_for_updates && latest_version > project_version)
 	{
+		var latest_version_string = latest_version.toFixed(1);
 		var cookie = { id: 'hide_update_available_dialog_'+project_version, value: 'true', expires: 7 };
-		if(!isCookie(cookie.id)) showDialog({ title: 'Update available', body_class: 'dialog_message_div', body_text: project_name+' '+latest_version+' has been released!', button1: { text: 'Close', keys : ['actions', 'cookieid', 'cookievalue', 'cookieexpires'], values: ['hide_dialog set_cookie', cookie.id, cookie.value, cookie.expires] }, button2: { text: 'Download', keys : ['actions', 'uri'], values: ['open_external_activity', project_website+'?download'] } });
+		if(!isCookie(cookie.id)) showDialog({ title: 'Update available', body_class: 'dialog_message_div', body_text: project_name+' '+latest_version_string+' has been released!', button1: { text: 'Close', keys : ['actions', 'cookieid', 'cookievalue', 'cookieexpires'], values: ['hide_dialog set_cookie', cookie.id, cookie.value, cookie.expires] }, button2: { text: 'Download', keys : ['actions', 'uri'], values: ['open_external_activity', project_website+'?download'] } });
 	}
 
 	if(ua_is_android)
@@ -1814,6 +1828,24 @@ function nativeAppLoad(is_paused)
 			Android.JSsetSharedBoolean('PAUSE_ON_INCOMING_CALL', false);
 		}
 
+		if(settings_flip_to_pause)
+		{
+			Android.JSflipToPause(true);
+		}
+		else
+		{
+			Android.JSflipToPause(false);
+		}
+
+		if(settings_persistent_notification)
+		{
+			Android.JSsetSharedBoolean('PERSISTENT_NOTIFICATION', true);
+		}
+		else
+		{
+			Android.JSsetSharedBoolean('PERSISTENT_NOTIFICATION', false);
+		}
+
 		var shareUri = urlToUri(Android.JSgetSharedString('SHARE_URI'));
 
 		if(shareUri != '')
@@ -1864,6 +1896,10 @@ function nativeAppAction(action)
 	{
 		changeActivity('search', '', '');
 	}
+	else if(action == 'play_pause')
+	{
+		remoteControl('play_pause');
+	}
 	else if(action == 'pause')
 	{
 		remoteControl('pause');
@@ -1906,7 +1942,7 @@ function integrateInUbuntuUnity()
 	{
 		ubuntu_unity = window.external.getUnityObject(1.0);
 
-		ubuntu_unity.init({ name: project_name, iconUrl: project_website+'img/ubuntu-unity-icon.png', onInit: function()
+		ubuntu_unity.init({ name: project_name, iconUrl: project_website+'img/ubuntu-unity-icon.png?'+project_serial, onInit: function()
 		{
 			ubuntu_unity.MediaPlayer.onPrevious(function()
 			{
@@ -1936,15 +1972,15 @@ function integrateInMSIE()
 {
 	try
 	{
-		ie_thumbnail_button_previous = window.external.msSiteModeAddThumbBarButton('img/previous.ico', 'Previous');
-		ie_thumbnail_button_play_pause = window.external.msSiteModeAddThumbBarButton('img/play.ico', 'Play');
-		ie_thumbnail_button_next = window.external.msSiteModeAddThumbBarButton('img/next.ico', 'Next');
-		ie_thumbnail_button_volume_mute = window.external.msSiteModeAddThumbBarButton('img/volume-mute.ico', 'Mute');
-		ie_thumbnail_button_volume_down = window.external.msSiteModeAddThumbBarButton('img/volume-down.ico', 'Volume down');
-		ie_thumbnail_button_volume_up = window.external.msSiteModeAddThumbBarButton('img/volume-up.ico', 'Volume up');
+		ie_thumbnail_button_previous = window.external.msSiteModeAddThumbBarButton('img/previous.ico?'+project_serial, 'Previous');
+		ie_thumbnail_button_play_pause = window.external.msSiteModeAddThumbBarButton('img/play.ico?'+project_serial, 'Play');
+		ie_thumbnail_button_next = window.external.msSiteModeAddThumbBarButton('img/next.ico?'+project_serial, 'Next');
+		ie_thumbnail_button_volume_mute = window.external.msSiteModeAddThumbBarButton('img/volume-mute.ico?'+project_serial, 'Mute');
+		ie_thumbnail_button_volume_down = window.external.msSiteModeAddThumbBarButton('img/volume-down.ico?'+project_serial, 'Volume down');
+		ie_thumbnail_button_volume_up = window.external.msSiteModeAddThumbBarButton('img/volume-up.ico?'+project_serial, 'Volume up');
 
 		ie_thumbnail_button_style_play = 0;
-		ie_thumbnail_button_style_pause = window.external.msSiteModeAddButtonStyle(ie_thumbnail_button_play_pause, 'img/pause.ico', 'Pause');
+		ie_thumbnail_button_style_pause = window.external.msSiteModeAddButtonStyle(ie_thumbnail_button_play_pause, 'img/pause.ico?'+project_serial, 'Pause');
 
 		window.external.msSiteModeShowThumbBar();
 
@@ -1990,7 +2026,7 @@ function onClickMSIEthumbnailButton(button)
 
 function enableKeyboardShortcuts()
 {
-	$.getScript('js/mousetrap.js', function()
+	$.getScript('js/mousetrap.js?'+project_serial, function()
 	{
 		Mousetrap.bind('1', function() { adjustVolume('mute'); }, 'keyup');
 		Mousetrap.bind('2', function() { adjustVolume('down'); }, 'keyup');
@@ -2129,19 +2165,6 @@ function getTracksCount(count)
 	return (count > 1) ? count+' tracks' : count+' track';
 }
 
-function getInternetExplorerVersion()
-{
-	var rv = -1;
-
-	if(navigator.appName == 'Microsoft Internet Explorer')
-	{
-		var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-		if (re.exec(ua) != null) rv = parseFloat(RegExp.$1);
-	}
-
-	return rv;
-}
-
 // Manipulate stuff
 
 function hsc(string)
@@ -2215,6 +2238,11 @@ function uriToUrl(uri)
 			uri = uri.split(':');
 			uri = 'http://open.spotify.com/user/'+uri[2]+'/playlist/'+uri[4];
 		}
+		else if(type == 'starred')
+		{
+			uri = uri.split(':');
+			uri = 'http://open.spotify.com/user/'+uri[2]+'/starred';
+		}
 	}
 
 	return uri;
@@ -2247,6 +2275,11 @@ function urlToUri(uri)
 			uri = 'spotify:album:'+uri;
 		}
 		else if(type == 'playlist')
+		{
+			uri = uri.replace('http://open.spotify.com/user/', '').replace(/\//g, ':');
+			uri = 'spotify:user:'+uri;
+		}
+		else if(type == 'starred')
 		{
 			uri = uri.replace('http://open.spotify.com/user/', '').replace(/\//g, ':');
 			uri = 'spotify:user:'+uri;

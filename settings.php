@@ -81,6 +81,16 @@ else
 <div class="setting_edit_div"><input type="checkbox" class="setting_checkbox" name="settings_pause_on_incoming_call"<?php echo setting_checkbox_status('settings_pause_on_incoming_call'); ?>></div>
 </div>
 
+<div class="setting_div">
+<div class="setting_text_div"><div>Flip to pause</div><div>Pause the music when the device is flipped screen-down.</div></div>
+<div class="setting_edit_div"><input type="checkbox" class="setting_checkbox" name="settings_flip_to_pause"<?php echo setting_checkbox_status('settings_flip_to_pause'); ?>></div>
+</div>
+
+<div class="setting_div">
+<div class="setting_text_div"><div>Notification</div><div>Show persistent notification with playback controls when in background. Android 4.1 and up.</div></div>
+<div class="setting_edit_div"><input type="checkbox" class="setting_checkbox" name="settings_persistent_notification"<?php echo setting_checkbox_status('settings_persistent_notification'); ?>></div>
+</div>
+
 <div class="setting_div actions_div" data-actions="change_native_app_computer" onclick="void(0)">
 <div class="setting_text_div"><div>Change computer</div><div>Tap here to change computer.</div></div>
 </div>
@@ -103,6 +113,7 @@ $setting = 'settings_region';
 $options = array(
 	'ALL' => 'All',
 	'AD' => 'Andorra',
+	'AR' => 'Argentina',
 	'AU' => 'Australia',
 	'AT' => 'Austria',
 	'BE' => 'Belgium',
@@ -111,6 +122,7 @@ $options = array(
 	'FI' => 'Finland',
 	'FR' => 'France',
 	'DE' => 'Germany',
+	'GR' => 'Greece',
 	'HK' => 'Hong Kong',
 	'IS' => 'Iceland',
 	'IE' => 'Ireland',
@@ -131,6 +143,8 @@ $options = array(
 	'ES' => 'Spain',
 	'SE' => 'Sweden',
 	'CH' => 'Switzerland',
+	'TW' => 'Taiwan',
+	'TR' => 'Turkey',
 	'GB' => 'United Kingdom',
 	'US' => 'United States'
 );

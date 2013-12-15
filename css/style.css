@@ -35,56 +35,25 @@ body
 	content-zooming: none;
 	-webkit-content-zooming: none;
 	-moz-content-zooming: none;
-	-o-content-zooming: none;
 	-ms-content-zooming: none;
 	touch-callout: none;
 	-webkit-touch-callout: none;
 	-moz-touch-callout: none;
-	-o-touch-callout: none;
 	-ms-touch-callout: none;
 	tap-highlight-color: rgba(0, 0, 0, 0);
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
-	-o-tap-highlight-color: rgba(0, 0, 0, 0);
 	-ms-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-/* Scollbars */
-
-@media screen and (-webkit-min-device-pixel-ratio: 0)
-{
-	::-webkit-scrollbar
-	{
-		width: 8px;
-		height: 8px;
-	}
-
-	::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
-	{
-		height: 8px;
-		background-color: #eee;
-	}
-
-	::-webkit-scrollbar-track-piece
-	{
-		background-color: #eee;
-	}
-
-	::-webkit-scrollbar-thumb
-	{
-		background-color: #669900;
-		border: 2px solid #eee;
-	}
 }
 
 /* Divisions */
 
 div
 {
+	outline: 0;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
-	-o-user-select: none;
 	-ms-user-select: none;
 }
 
@@ -158,6 +127,7 @@ div#top_actionbar_inner_vertical_line_div > div
 
 div#top_actionbar_inner_center_div
 {
+	cursor: default !important;
 	display: table-cell;
 	padding-left: 18px;
 	vertical-align: middle;
@@ -213,7 +183,6 @@ div#top_actionbar_overflow_actions_div
 	box-shadow: 0px 4px 12px #606060;
 	-webkit-box-shadow: 0 4px 12px #606060;
 	-moz-box-shadow: 0 4px 12px #606060;
-	-o-box-shadow: 0 4px 12px #606060;
 	-ms-box-shadow: 0 4px 12px #606060;
 }
 
@@ -396,7 +365,6 @@ div#dialog_div
 	box-shadow: 0px 4px 24px #000;
 	-webkit-box-shadow: 0px 4px 24px #000;
 	-moz-box-shadow: 0px 4px 24px #000;
-	-o-box-shadow: 0px 4px 24px #000;
 	-ms-box-shadow: 0px 4px 24px #000;
 }
 
@@ -508,7 +476,6 @@ div#toast_div
 	box-shadow: 0px 2px 8px #151515;
 	-webkit-box-shadow: 0px 2px 8px #151515;
 	-moz-box-shadow: 0px 2px 8px #151515;
-	-o-box-shadow: 0px 2px 8px #151515;
 	-ms-box-shadow: 0px 2px 8px #151515;
 }
 
@@ -851,7 +818,6 @@ div#nowplaying_actionbar_overflow_actions_div
 	box-shadow: 0px 4px 12px #151515;
 	-webkit-box-shadow: 0 4px 12px #151515;
 	-moz-box-shadow: 0 4px 12px #151515;
-	-o-box-shadow: 0 4px 12px #151515;
 	-ms-box-shadow: 0 4px 12px #151515;
 }
 
@@ -1079,6 +1045,11 @@ div#lyrics_div
 
 /* Spans */
 
+span
+{
+	outline: 0;
+}
+
 span.actions_span
 {
 	cursor: pointer;
@@ -1105,7 +1076,6 @@ input[type="text"]
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	-o-appearance: none;
 	-ms-appearance: none;
 }
 
@@ -1127,7 +1097,6 @@ input.setting_checkbox
 	tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-webkit-tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-moz-tap-highlight-color: rgba(204, 204, 204, 0.75);
-	-o-tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-ms-tap-highlight-color: rgba(204, 204, 204, 0.75);
 }
 
@@ -1141,7 +1110,6 @@ select
 	tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-webkit-tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-moz-tap-highlight-color: rgba(204, 204, 204, 0.75);
-	-o-tap-highlight-color: rgba(204, 204, 204, 0.75);
 	-ms-tap-highlight-color: rgba(204, 204, 204, 0.75);
 }
 

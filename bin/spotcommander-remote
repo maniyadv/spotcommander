@@ -247,34 +247,6 @@ while($daemon_connect = stream_socket_accept($daemon_server, -1))
 
 		$return = (isset($volume[1])) ? intval($volume[1]) : 50;
 	}
-	elseif($action == 'get_spotify_playlists')
-	{
-		$file = daemon_get_spotify_user_path() . 'playlist.bnk';
-
-		if(file_exists($file))
-		{
-			$file = $file ? file_get_contents($file) : "";
-			$pos = -1;
-
-			while(($pos = strpos($file, "\002\t", $pos + 1)) !== false)
-			{
-				$p = $pos + 2;
-				$len = ord($file{$p});
-				$p++;
-				$name = substr($file, $p, $len);
-				$p += $len;
-				if(substr($file, $p, 3) != "\030\001\031") continue;
-				$p += 3;
-				$len = ord($file{$p});
-				$p++;
-				$uri = substr($file, $p, $len);
-				$p += $len;
-				if(substr($file, $p, 1) != "\031") continue;
-
-				$return[$uri] = $name;
-			}
-		}
-	}
 	elseif($action == 'get_spotify_guistate')
 	{
 		$file = daemon_get_spotify_user_path() . 'guistate';

@@ -33,17 +33,14 @@ body
 	content-zooming: none;
 	-webkit-content-zooming: none;
 	-moz-content-zooming: none;
-	-o-content-zooming: none;
 	-ms-content-zooming: none;
 	touch-callout: none;
 	-webkit-touch-callout: none;
 	-moz-touch-callout: none;
-	-o-touch-callout: none;
 	-ms-touch-callout: none;
 	tap-highlight-color: rgba(170, 170, 170, 0.5);
 	-webkit-tap-highlight-color: rgba(170, 170, 170, 0.5);
 	-moz-tap-highlight-color: rgba(170, 170, 170, 0.5);
-	-o-tap-highlight-color: rgba(170, 170, 170, 0.5);
 	-ms-tap-highlight-color: rgba(170, 170, 170, 0.5);
 }
 
@@ -54,7 +51,6 @@ div
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
-	-o-user-select: none;
 	-ms-user-select: none;
 }
 

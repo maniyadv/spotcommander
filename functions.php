@@ -35,6 +35,11 @@ function spotify_is_running()
 	return false;
 }
 
+function get_spotify_username()
+{
+	return remote_control('get_spotify_username', '');
+}
+
 // Daemon
 
 function daemon_start($user)
@@ -147,7 +152,7 @@ function daemon_pulseaudio_check()
 
 function remote_control($action, $data)
 {
-	if(spotify_is_running() || $action == 'spotify_launch' || $action == 'get_spotify_playlists' || $action == 'get_spotify_guistate' || $action == 'get_spotify_username')
+	if(spotify_is_running() || $action == 'spotify_launch' || $action == 'get_spotify_guistate' || $action == 'get_spotify_username')
 	{
 		@$socket_connect = stream_socket_client('unix://' . daemon_socket, $errno, $errstr);
 
@@ -390,11 +395,6 @@ function queue_is_empty()
 
 // Playlists
 
-function get_spotify_playlists()
-{
-	return remote_control('get_spotify_playlists', '');
-}
-
 function get_playlist($playlist_uri)
 {
 	$return = null;
@@ -636,7 +636,7 @@ function import_starred_tracks($uris)
 
 function import_starred_spotify_tracks()
 {
-	$user = remote_control('get_spotify_username', '');
+	$user = get_spotify_username();
 
 	$playlist = get_playlist('spotify:user:' . $user . ':starred');
 
@@ -1181,7 +1181,7 @@ function get_external_files($uris)
 		curl_setopt($ch[$i], CURLOPT_URL, $uris[$i]);
 		curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch[$i], CURLOPT_TIMEOUT_MS, 10000);
-		curl_setopt($ch[$i], CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:23.0) Gecko/20100101 Firefox/23.0');
+		curl_setopt($ch[$i], CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0');
 
 		if(config_proxy)
 		{
@@ -1481,6 +1481,11 @@ function uri_to_url($uri)
 			$uri = explode(':', $uri);
 			$uri = 'http://open.spotify.com/user/' . $uri[2] . '/playlist/' . $uri[4];
 		}
+		elseif($type == 'starred')
+		{
+			$uri = explode(':', $uri);
+			$uri = 'http://open.spotify.com/user/' . $uri[2] . '/starred';
+		}
 	}
 
 	return $uri;
@@ -1513,6 +1518,11 @@ function url_to_uri($uri)
 			$uri = 'spotify:album:' . $uri;
 		}
 		elseif($type == 'playlist')
+		{
+			$uri = str_replace(array('http://open.spotify.com/user/', '/'), array('', ':'), $uri);
+			$uri = 'spotify:user:' . $uri;
+		}
+		elseif($type == 'starred')
 		{
 			$uri = str_replace(array('http://open.spotify.com/user/', '/'), array('', ':'), $uri);
 			$uri = 'spotify:user:' . $uri;

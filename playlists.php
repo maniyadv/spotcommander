@@ -79,8 +79,7 @@ elseif(isset($_GET['add']))
 		<div class="list_header_div"><div><div>INFORMATION</div></div><div></div></div>
 
 		<ul>
-		<li>Some users experience that their playlists are not listed automatically with the latest Spotify client</li>
-		<li>In that case, playlists can be added easily</li>
+		<li>Playlists can be added from Spotify easily</li>
 		<li>Before adding, <span class="actions_span" data-actions="open_external_activity" data-uri="' . project_website . '?adding_playlists" data-highlightclass="opacity_highlight" onclick="void(0)">read this</span></li>
 		<li>Adding can take some time because playlist names must be looked up on Spotify\'s servers</li>
 		<li>Playlists can also be added manually by copying Spotify playlist URIs or HTTP links from Spotify or web pages</li>
@@ -264,21 +263,54 @@ else
 	$activity['title'] = 'Playlists';
 	$activity['actions'][] = array('action' => array('Add playlists', 'add_32_img_div'), 'keys' => array('actions', 'activity', 'subactivity', 'args'), 'values' => array('change_activity', 'playlists', 'add', ''));
 
+	echo '<div id="activity_inner_div" data-activitydata="' . base64_encode(json_encode($activity)) . '">';
+
+	$user = get_spotify_username();
+
+	if($user != 'unknown')
+	{
+		$uri = 'spotify:user:' . $user . ':starred';
+
+		echo '
+			<div class="list_header_div"><div><div>STARRED</div></div><div></div></div>
+
+			<div class="list_div">
+
+			<div class="list_item_div">
+			<div title="Starred in Spotify" class="list_item_main_div actions_div" data-actions="toggle_list_item_actions" data-highlightotherelement="div.list_item_main_corner_arrow_div" data-highlightotherelementparent="div.list_item_div" data-highlightotherelementclass="corner_arrow_dark_grey_highlight" onclick="void(0)">
+			<div class="list_item_main_actions_arrow_div"></div>
+			<div class="list_item_main_corner_arrow_div"></div>
+			<div class="list_item_main_inner_div">
+			<div class="list_item_main_inner_icon_div"><div class="img_div img_24_div playlist_24_img_div"></div></div>
+			<div class="list_item_main_inner_text_div"><div class="list_item_main_inner_text_upper_div">Starred in Spotify</div><div class="list_item_main_inner_text_lower_div">' . $user . '</div></div>
+			</div>
+			</div>
+			<div class="list_item_actions_div">
+			<div class="list_item_actions_inner_div">
+			<div title="Play" class="actions_div" data-actions="play_uri" data-uri="' . $uri . '" data-highlightclass="dark_grey_highlight" data-highlightotherelement="div.list_item_main_actions_arrow_div" data-highlightotherelementparent="div.list_item_div" data-highlightotherelementclass="up_arrow_dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div play_24_img_div"></div></div>
+			<div title="Play randomly" class="actions_div" data-actions="play_uri_randomly" data-uri="' . $uri . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div play_uri_randomly_24_img_div"></div></div>
+			<div title="Share" class="actions_div" data-actions="share_uri" data-title="Starred in Spotify" data-uri="' . rawurlencode(uri_to_url($uri)) . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div share_24_img_div"></div></div>
+			</div>
+			</div>
+			</div>
+
+			</div>
+		';
+	}
+
 	$actions_dialog = array();
 	$actions_dialog['title'] = 'Sort by';
-	$actions_dialog['actions'][] = array('text' => 'Default', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_' . strtolower(project_name) . '_playlists', 'default', 36500));
-	$actions_dialog['actions'][] = array('text' => 'Name', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_' . strtolower(project_name) . '_playlists', 'name', 36500));
-	$actions_dialog['actions'][] = array('text' => 'User', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_' . strtolower(project_name) . '_playlists', 'user', 36500));
+	$actions_dialog['actions'][] = array('text' => 'Default', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_playlists', 'default', 36500));
+	$actions_dialog['actions'][] = array('text' => 'Name', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_playlists', 'name', 36500));
+	$actions_dialog['actions'][] = array('text' => 'User', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_playlists', 'user', 36500));
 
 	echo '
-		<div id="activity_inner_div" data-activitydata="' . base64_encode(json_encode($activity)) . '">
-
-		<div class="list_header_div"><div><div>' . strtoupper(project_name) . '</div></div><div title="Sort" class="actions_div" data-actions="show_actions_dialog" data-dialogactions="' . base64_encode(json_encode($actions_dialog)) . '" data-highlightclass="light_grey_highlight" onclick="void(0)"><div class="img_div img_24_div ' . is_sorted('settings_sort_' . strtolower(project_name) . '_playlists') . '_24_img_div"></div></div></div>
+		<div class="list_header_div"><div><div>PLAYLISTS</div></div><div title="Sort" class="actions_div" data-actions="show_actions_dialog" data-dialogactions="' . base64_encode(json_encode($actions_dialog)) . '" data-highlightclass="light_grey_highlight" onclick="void(0)"><div class="img_div img_24_div ' . is_sorted('settings_sort_playlists') . '_24_img_div"></div></div></div>
 
 		<div class="list_div">
 	';
 
-	$sort = $_COOKIE['settings_sort_' . strtolower(project_name) . '_playlists'];
+	$sort = $_COOKIE['settings_sort_playlists'];
 
 	$order1 = 'id';
 	$order2 = 'uri';
@@ -298,7 +330,7 @@ else
 
 	if(empty($playlists))
 	{
-		echo '<div class="list_empty_div">No playlists added.</div>';
+		echo '<div class="list_empty_div">No playlists. <span class="actions_span" data-actions="change_activity" data-activity="playlists" data-subactivity="add" data-args="" data-highlightclass="opacity_highlight" onclick="void(0)">Tap here</span> to add your playlists.</div>';
 	}
 	else
 	{
@@ -339,73 +371,6 @@ else
 				</div>
 				</div>
 			';
-		}
-	}
-
-	$actions_dialog = array();
-	$actions_dialog['title'] = 'Sort by';
-	$actions_dialog['actions'][] = array('text' => 'Default', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_spotify_playlists', 'default', 36500));
-	$actions_dialog['actions'][] = array('text' => 'Name', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_spotify_playlists', 'name', 36500));
-	$actions_dialog['actions'][] = array('text' => 'User', 'keys' => array('actions', 'cookieid', 'cookievalue', 'cookieexpires'), 'values' => array('hide_dialog set_cookie refresh_activity', 'settings_sort_spotify_playlists', 'user', 36500));
-
-	echo '
-		</div>
-
-		<div class="list_header_div"><div><div>SPOTIFY</div></div><div title="Sort" class="actions_div" data-actions="show_actions_dialog" data-dialogactions="' . base64_encode(json_encode($actions_dialog)) . '" data-highlightclass="light_grey_highlight" onclick="void(0)"><div class="img_div img_24_div ' . is_sorted('settings_sort_spotify_playlists') . '_24_img_div"></div></div></div>
-
-		<div class="list_div">
-	';
-
-	$playlists = get_spotify_playlists();
-
-	if(empty($playlists))
-	{
-		echo '<div class="list_empty_div">No playlists. <span class="actions_span" data-actions="change_activity" data-activity="playlists" data-subactivity="add" data-args="" data-highlightclass="opacity_highlight" onclick="void(0)">Learn more</span>.</div>';
-	}
-	else
-	{
-		$sort = $_COOKIE['settings_sort_spotify_playlists'];
-
-		if($sort == 'name')
-		{
-			natcasesort($playlists);
-		}
-		elseif($sort == 'user')
-		{
-			ksort($playlists);
-		}
-
-		foreach($playlists as $uri => $name)
-		{
-			$user = explode(':', $uri);
-			$user = is_facebook_user(urldecode($user[2]));
-
-			$actions_dialog = array();
-			$actions_dialog['title'] = ucfirst(hsc($name));
-			$actions_dialog['actions'][] = array('text' => 'Queue tracks', 'keys' => array('actions', 'uris', 'randomly'), 'values' => array('hide_dialog queue_uris', $uri, 'false'));
-			$actions_dialog['actions'][] = array('text' => 'Queue tracks randomly', 'keys' => array('actions', 'uris', 'randomly'), 'values' => array('hide_dialog queue_uris', $uri, 'true'));
-
-			echo '
-				<div class="list_item_div">
-				<div title="' . ucfirst(hsc($name)) . '" class="list_item_main_div actions_div" data-actions="toggle_list_item_actions" data-highlightotherelement="div.list_item_main_corner_arrow_div" data-highlightotherelementparent="div.list_item_div" data-highlightotherelementclass="corner_arrow_dark_grey_highlight" onclick="void(0)">
-				<div class="list_item_main_actions_arrow_div"></div>
-				<div class="list_item_main_corner_arrow_div"></div>
-				<div class="list_item_main_inner_div">
-				<div class="list_item_main_inner_icon_div"><div class="img_div img_24_div playlist_24_img_div"></div></div>
-				<div class="list_item_main_inner_text_div"><div class="list_item_main_inner_text_upper_div">' . ucfirst(hsc($name)) . '</div><div class="list_item_main_inner_text_lower_div">' . hsc($user) . '</div></div>
-				</div>
-				</div>
-				<div class="list_item_actions_div">
-				<div class="list_item_actions_inner_div">
-				<div title="Play" class="actions_div" data-actions="play_uri" data-uri="' . $uri . '" data-highlightclass="dark_grey_highlight" data-highlightotherelement="div.list_item_main_actions_arrow_div" data-highlightotherelementparent="div.list_item_div" data-highlightotherelementclass="up_arrow_dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div play_24_img_div"></div></div>
-				<div title="Play randomly" class="actions_div" data-actions="play_uri_randomly" data-uri="' . $uri . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div play_uri_randomly_24_img_div"></div></div>
-				<div title="Browse" class="actions_div" data-actions="change_activity" data-activity="playlists" data-subactivity="browse" data-args="uri=' . $uri . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div browse_24_img_div"></div></div>
-				<div title="Share" class="actions_div" data-actions="share_uri" data-title="' . ucfirst(hsc($name)) . '" data-uri="' . rawurlencode(uri_to_url($uri)) . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div share_24_img_div"></div></div>
-				<div title="More" class="actions_div" data-actions="show_actions_dialog" data-dialogactions="' . base64_encode(json_encode($actions_dialog)) . '" data-highlightclass="dark_grey_highlight" onclick="void(0)"><div class="img_div img_24_div overflow_24_img_div"></div></div>
-				</div>
-				</div>
-				</div>
-			';			
 		}
 	}
 

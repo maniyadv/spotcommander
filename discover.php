@@ -102,6 +102,8 @@ elseif(isset($_GET['most-streamed-shared']))
 	$chart = $_GET['chart'];
 
 	$countries = array(
+		'AD' => 'Andorra',
+		'AR' => 'Argentina',
 		'AU' => 'Australia',
 		'AT' => 'Austria',
 		'BE' => 'Belgium',
@@ -110,15 +112,18 @@ elseif(isset($_GET['most-streamed-shared']))
 		'FI' => 'Finland',
 		'FR' => 'France',
 		'DE' => 'Germany',
+		'GR' => 'Greece',
 		'HK' => 'Hong Kong',
 		'IS' => 'Iceland',
 		'IE' => 'Ireland',
 		'IT' => 'Italy',
 		'LV' => 'Latvia',
+		'LI' => 'Liechtenstein',
 		'LT' => 'Lithuania',
 		'LU' => 'Luxembourg',
 		'MY' => 'Malaysia',
 		'MX' => 'Mexico',
+		'MC' => 'Monaco',
 		'NL' => 'Netherlands',
 		'NZ' => 'New Zealand',
 		'NO' => 'Norway',
@@ -128,6 +133,8 @@ elseif(isset($_GET['most-streamed-shared']))
 		'ES' => 'Spain',
 		'SE' => 'Sweden',
 		'CH' => 'Switzerland',
+		'TW' => 'Taiwan',
+		'TR' => 'Turkey',
 		'GB' => 'United Kingdom',
 		'US' => 'United States'
 	);

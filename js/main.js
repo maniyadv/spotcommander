@@ -36,9 +36,6 @@ function setGlobalVariables(global_variables)
 	// Error code
 	error_code = parseInt(global_variables[6]);
 
-	// Serial
-	serial_cached = 1206;
-
 	// User agent
 	ua = navigator.userAgent;
 
@@ -54,6 +51,7 @@ function setGlobalVariables(global_variables)
 		pointer_event = 'touchend';
 		pointer_down_event = 'touchstart';
 		pointer_move_event = 'touchmove';
+		pointer_cancel_event = 'touchcancel';
 		pointer_up_event = 'touchend';
 	}
 	else
@@ -61,6 +59,7 @@ function setGlobalVariables(global_variables)
 		pointer_event = 'mouseup';
 		pointer_down_event = 'mousedown';
 		pointer_move_event = 'mousemove';
+		pointer_cancel_event = 'mousecancel';
 		pointer_up_event = 'mouseup';
 	}
 
@@ -71,9 +70,6 @@ function setGlobalVariables(global_variables)
 	ua_is_standalone = (ua_is_android && shc(ua, project_name) || ua_is_ios && window.navigator && ('standalone' in window.navigator) && window.navigator.standalone);
 	ua_is_android_app = (ua_is_android && ua_is_standalone);
 	ua_is_webkit = (shc(ua, 'AppleWebKit'));
-	ua_is_android_chrome = (ua_is_android && shc(ua, 'Chrome'));
-	ua_is_android_opera = (ua_is_android && shc(ua, 'OPR/'));
-	ua_is_ios_chrome = (ua_is_ios && shc(ua, 'CriOS'));
 	ua_is_ubuntu_unity = (window.external && ('getUnityObject' in window.external));
 	ua_is_pinnable_msie = (window.external && ('msIsSiteMode' in window.external));
 
@@ -85,17 +81,17 @@ function setGlobalVariables(global_variables)
 	{
 		if(shc(ua, 'Android 2.3') || shc(ua, 'Android 4'))
 		{
-			if(ua_is_webkit && !ua_is_android_chrome && !ua_is_android_opera) ua_is_supported = true;
+			if(ua_is_webkit) ua_is_supported = true;
 		}
 	}
 	else if(ua_is_ios)
 	{
-		if(shc(ua, 'OS 5_') || shc(ua, 'OS 6_'))
+		if(shc(ua, 'OS 5_') || shc(ua, 'OS 6_') || shc(ua, 'OS 7_'))
 		{
-			if(ua_is_webkit && !ua_is_ios_chrome) ua_is_supported = true;
+			if(ua_is_webkit) ua_is_supported = true;
 		}
 	}
-	else if(shc(ua, 'Chrome') || shc(ua, 'Firefox') || shc(ua, 'Opera') || shc(ua, 'Safari') && shc(ua, 'Macintosh') || getInternetExplorerVersion() >= 9)
+	else if(shc(ua, 'Chrome') || shc(ua, 'Firefox') || shc(ua, 'Safari') && shc(ua, 'Macintosh'))
 	{
 		ua_is_supported = true;
 	}
@@ -110,7 +106,7 @@ function setGlobalVariables(global_variables)
 	// Pointer
 	pointer_is_down = false;
 	pointer_moved = false;
-	pointer_moved_sensitivity = (ua_is_android_chrome) ? 5 : 10;
+	pointer_moved_sensitivity = 10;
 
 	// XHRs
 	xhr_activity = new XMLHttpRequest();
@@ -126,7 +122,6 @@ function setGlobalVariables(global_variables)
 	// Timeouts
 	timeout_window_resize = null;
 	timeout_scrolling = null;
-	timeout_scrolltop = null;
 	timeout_activity_loading = null;
 	timeout_activity_error = null;
 	timeout_activity_loaded_input_text = null;
@@ -144,10 +139,6 @@ function setGlobalVariables(global_variables)
 	if(prefix == 'WebkitTransition')
 	{
 		event_transitionend = 'webkitTransitionEnd';
-	}
-	else if(prefix == 'OTransition')
-	{
-		event_transitionend = 'oTransitionEnd';
 	}
 	else if(prefix == 'msTransition')
 	{
@@ -176,8 +167,9 @@ function setGlobalVariables(global_variables)
 		{ setting: 'settings_keyboard_shortcuts' , value: (ua_supports_touch) ? 'false' : 'true' },
 		{ setting: 'settings_keep_screen_on' , value: 'false' },
 		{ setting: 'settings_pause_on_incoming_call' , value: 'false' },
-		{ setting: 'settings_sort_'+project_name.toLowerCase()+'_playlists' , value: 'default' },
-		{ setting: 'settings_sort_spotify_playlists' , value: 'default' },
+		{ setting: 'settings_flip_to_pause' , value: 'false' },
+		{ setting: 'settings_persistent_notification' , value: 'false' },
+		{ setting: 'settings_sort_playlists' , value: 'default' },
 		{ setting: 'settings_sort_playlist_tracks' , value: 'default' },
 		{ setting: 'settings_sort_starred_tracks' , value: 'default' },
 		{ setting: 'settings_sort_starred_albums' , value: 'default' },
@@ -205,41 +197,9 @@ function setGlobalVariables(global_variables)
 	settings_keyboard_shortcuts = stringToBoolean($.cookie('settings_keyboard_shortcuts'));
 	settings_keep_screen_on = stringToBoolean($.cookie('settings_keep_screen_on'));
 	settings_pause_on_incoming_call = stringToBoolean($.cookie('settings_pause_on_incoming_call'));
+	settings_flip_to_pause = stringToBoolean($.cookie('settings_flip_to_pause'));
+	settings_persistent_notification = stringToBoolean($.cookie('settings_persistent_notification'));
 }
-
-// Document ready
-
-$(document).ready(function()
-{
-	// Application cache
-	var file = 0;
-
-	window.applicationCache.addEventListener('progress', function(event)
-	{
-		if(typeof event.loaded != 'undefined' && typeof event.total != 'undefined')
-		{
-			var percentage = Math.round(event.loaded / event.total * 100);
-			var progress = ' ('+percentage+' %)';
-		}
-		else
-		{
-			file++;
-
-			var progress = ' (file '+file+')';
-		}
-
-		if($('span#application_cache_progress_span').length) $('span#application_cache_progress_span').html(progress);
-	}, false);
-
-	window.applicationCache.addEventListener('updateready', function()
-	{
-		setTimeout(function()
-		{
-			window.applicationCache.swapCache();
-			window.location.reload(true);
-		}, 2000);
-	}, false);
-});
 
 // Window load
 
@@ -253,23 +213,6 @@ $(window).load(function()
 	{
 		setGlobalVariables(xhr_data);
 		setCss();
-
-		// Application cache
-		if(serial_cached != project_serial)
-		{
-			setActivityTitle('Wait...');
-			setActivityContent('<div id="activity_inner_div"><div id="activity_message_div"><div><div class="img_div img_64_div information_64_img_div"></div></div><div>Updating cache<span id="application_cache_progress_span"></span>...</div></div></div>');
-			setActivityActions('<div title="Retry" class="actions_div" onclick="window.location.reload(true)"><div class="img_div img_32_div reload_32_img_div"></div></div>');
-			setActivityActionsVisibility('hidden');
-
-			setTimeout(function()
-			{
-				setActivityActionsVisibility('visible');
-				$('div#activity_message_div > div:last-child').append('<br><br>This is taking longer than it should. If there is no progress, tap the top right icon to retry.');
-			}, 30000);
-
-			return;
-		}
 
 		// Check for errors
 		var code = checkForErrors();
@@ -307,21 +250,6 @@ $(window).load(function()
 			{
 				scrolling = false;
 			}, 250);
-
-			if(ua_is_android && !ua_is_standalone || ua_is_ios && !ua_is_standalone)
-			{
-				var scrolltop = $(window).scrollTop();
-
-				if(scrolltop == 0)
-				{
-					clearTimeout(timeout_scrolltop);
-
-					timeout_scrolltop = setTimeout(function()
-					{
-						if(!pointer_is_down && scrolltop == 0) scrollToTop();
-					}, 250);
-				}	
-			}
 		});
 
 		// Pointer
@@ -389,6 +317,11 @@ $(window).load(function()
 						}
 					}
 				}
+			});
+
+			$(document).on(pointer_cancel_event, function(event)
+			{
+				pointer_moved = true;
 			});
 
 			$(document).on(pointer_up_event, function()
@@ -489,7 +422,7 @@ $(window).load(function()
 				pointer_cover_art_moved_x = 0;
 				pointer_cover_art_moved_y = 0;
 
-				$(this).css('transition', '').css('transform', '').css('-webkit-transition', '').css('-webkit-transform', '').css('-moz-transition', '').css('-moz-transform', '').css('-o-transition', '').css('-o-transform', '').css('-ms-transition', '').css('-ms-transform', '').css('left', '');
+				$(this).css('transition', '').css('transform', '').css('-webkit-transition', '').css('-webkit-transform', '').css('-moz-transition', '').css('-moz-transform', '').css('-ms-transition', '').css('-ms-transform', '').css('left', '');
 			});
 
 			$(document).on(pointer_move_event, 'div#nowplaying_cover_art_div', function(event)
@@ -513,7 +446,7 @@ $(window).load(function()
 						var scale_constant = 0.5 / window_width;
 						var scale = 1 - (scale_variable * scale_constant);
 
-						$(this).css('transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-webkit-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-moz-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-o-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-ms-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)');
+						$(this).css('transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-webkit-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-moz-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)').css('-ms-transform', 'translate3d('+cover_art_move+'px, 0, 0) scale3d('+scale+', '+scale+', 1)');
 					}
 					else
 					{
@@ -536,7 +469,7 @@ $(window).load(function()
 				{
 					if(ua_supports_csstransitions && ua_supports_csstransforms3d)
 					{
-						$(this).css('transition', 'transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-webkit-transition', '-webkit-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-webkit-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-moz-transition', '-moz-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-moz-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-o-transition', '-o-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-o-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-ms-transition', '-ms-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-ms-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)');
+						$(this).css('transition', 'transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-webkit-transition', '-webkit-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-webkit-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-moz-transition', '-moz-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-moz-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)').css('-ms-transition', '-ms-transform 0.25s cubic-bezier(0.190, 1.000, 0.220, 1.000)').css('-ms-transform', 'translate3d(0, 0, 0) scale3d(1, 1, 1)');
 					}
 					else
 					{
@@ -594,9 +527,9 @@ $(window).load(function()
 			}
 		});
 
-		$(document).on(pointer_move_event, 'div.actions_div, span.actions_span', function()
+		$(document).on(pointer_move_event+' '+pointer_cancel_event, 'div.actions_div, span.actions_span', function(event)
 		{
-			if(!pointer_moved && !scrolling) return;
+			if(event.type == pointer_move_event && !pointer_moved && !scrolling) return;
 
 			var element = this;
 			var data = $(element).data();
@@ -664,6 +597,10 @@ $(window).load(function()
 				else if(action == 'open_external_activity')
 				{
 					openExternalActivity(data.uri);					
+				}
+				else if(action == 'scroll_to_top')
+				{
+					scrollToTop(true);
 				}
 				else if(action == 'show_menu')
 				{
@@ -1067,11 +1004,5 @@ $(window).load(function()
 
 			autoRefreshNowplaying('start');
 		}, 1000);
-	}).fail(function()
-	{
-		setActivityTitle('Error');
-		setActivityActions('<div title="Retry" class="actions_div" onclick="window.location.reload(true)"><div class="img_div img_32_div reload_32_img_div"></div></div>');
-		setActivityActionsVisibility('visible');
-		setActivityContent('<div id="activity_inner_div"><div id="activity_message_div"><div><div class="img_div img_64_div information_64_img_div"></div></div><div>Request failed. Make sure you are connected. Tap the top right icon to retry.</div></div></div>');
 	});
 });
