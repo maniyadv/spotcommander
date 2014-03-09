@@ -1,0 +1,70 @@
+#!/usr/bin/env php
+
+<?php
+
+/*
+
+Copyright 2014 Ole Jon Bjørkum
+
+This file is part of SpotCommander.
+
+SpotCommander is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+SpotCommander is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SpotCommander.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+chdir(__DIR__);
+
+require_once('../main.php');
+
+$this_file = basename(__FILE__);
+$action = (empty($argv[1])) ? '' : $argv[1];
+$user = posix_getpwuid(posix_geteuid());
+$user = $user['name'];
+$display = trim(getenv('DISPLAY'));
+
+if($action == 'start' || $action == 'restart')
+{
+	if($user == 'root')
+	{
+		echo "\nERROR: You are running as root. You should run this command as the desktop user running Spotify. Follow the installation instructions carefully.\n\n";
+	}
+	elseif(empty($display))
+	{
+		echo "\nERROR: You should run this command in your desktop session. Follow the installation instructions carefully.\n\n";
+	}
+	else
+	{
+		if($action == 'start')
+		{
+			echo "\nStarting daemon...\n\n";
+		}
+		elseif($action == 'restart')
+		{
+			echo "\nRestarting daemon...\n\n";
+		}
+
+		daemon_start($user);
+	}
+}
+elseif($action == 'stop')
+{
+	echo "\nStopping daemon...\n\n";
+	daemon_stop();
+}
+else
+{
+	echo "\nUsage: " . $this_file . " start|stop|restart\n\n";
+}
+
+?>

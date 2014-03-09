@@ -1,0 +1,728 @@
+/*
+
+Copyright 2014 Ole Jon Bjørkum
+
+This file is part of SpotCommander.
+
+SpotCommander is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+SpotCommander is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SpotCommander.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+/* Divisions */
+
+div.img_div
+{
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+div.img_24_div
+{
+	width: 24px;
+	height: 24px;
+}
+
+div.img_32_div
+{
+	width: 32px;
+	height: 32px;
+}
+
+div.img_48_div
+{
+	width: 48px;
+	height: 48px;
+}
+
+div.img_64_div
+{
+	width: 64px;
+	height: 64px;
+}
+
+div.img_110_10_div
+{
+	width: 110px;
+	height: 10px;
+}
+
+/* Images */
+
+div#cover_art_div
+{
+	background-image: url("../img/cover-art-100.png?1271");
+}
+
+div#nowplaying_cover_art_div
+{
+	background-image: url("../img/no-cover-art-640.png?1271");
+}
+
+/* 1x images */
+
+div.add_24_img_div
+{
+	background-image: url("../img/add-24.png?1271");
+}
+
+div.add_32_img_div
+{
+	background-image: url("../img/add-32.png?1271");
+}
+
+div.album_24_img_div
+{
+	background-image: url("../img/album-24.png?1271");
+}
+
+div.all_24_img_div
+{
+	background-image: url("../img/all-24.png?1271");
+}
+
+div.browse_24_img_div
+{
+	background-image: url("../img/browse-24.png?1271");
+}
+
+div.browse_32_img_div
+{
+	background-image: url("../img/browse-32.png?1271");
+}
+
+div#cover_art_play_div
+{
+	background-image: url("../img/play-cover-art-64.png?1271");
+}
+
+div.discover_24_img_div
+{
+	background-image: url("../img/discover-24.png?1271");
+}
+
+div.discover_48_img_div
+{
+	background-image: url("../img/discover-48.png?1271");
+}
+
+div.down_24_img_div
+{
+	background-image: url("../img/down-24.png?1271");
+}
+
+div.edit_24_img_div
+{
+	background-image: url("../img/edit-24.png?1271");
+}
+
+div.error_64_img_div
+{
+	background-image: url("../img/error-64.png?1271");
+}
+
+div.facebook_48_img_div
+{
+	background-image: url("../img/facebook-48.png?1271");
+}
+
+div.genre_24_img_div
+{
+	background-image: url("../img/genre-24.png?1271");
+}
+
+div.genres_24_img_div
+{
+	background-image: url("../img/genres-24.png?1271");
+}
+
+div.googleplus_48_img_div
+{
+	background-image: url("../img/googleplus-48.png?1271");
+}
+
+div.headphones_24_img_div
+{
+	background-image: url("../img/headphones-24.png?1271");
+}
+
+div.history_32_img_div
+{
+	background-image: url("../img/history-32.png?1271");
+}
+
+div.import_24_img_div
+{
+	background-image: url("../img/import-24.png?1271");
+}
+
+div.import_32_img_div
+{
+	background-image: url("../img/import-32.png?1271");
+}
+
+div.information_64_img_div
+{
+	background-image: url("../img/information-64.png?1271");
+}
+
+div.internet_32_img_div
+{
+	background-image: url("../img/internet-32.png?1271");
+}
+
+div.loading_32_img_div
+{
+	background-image: url("../img/loading-32.gif?1271");
+}
+
+div.menu_32_img_div
+{
+	background-image: url("../img/menu-32.png?1271");
+}
+
+div.next_48_img_div
+{
+	background-image: url("../img/next-48.png?1271");
+}
+
+div.overflow_24_img_div
+{
+	background-image: url("../img/overflow-24.png?1271");
+}
+
+div.overflow_32_img_div
+{
+	background-image: url("../img/overflow-32.png?1271");
+}
+
+div.pause_32_img_div
+{
+	background-image: url("../img/pause-32.png?1271");
+}
+
+div.pause_64_img_div
+{
+	background-image: url("../img/pause-64.png?1271");
+}
+
+div.play_24_img_div
+{
+	background-image: url("../img/play-24.png?1271");
+}
+
+div.play_32_img_div
+{
+	background-image: url("../img/play-32.png?1271");
+}
+
+div.play_64_img_div
+{
+	background-image: url("../img/play-64.png?1271");
+}
+
+div.play_uri_randomly_24_img_div
+{
+	background-image: url("../img/play-random-24.png?1271");
+}
+
+div.playing_24_img_div
+{
+	background-image: url("../img/playing-24.png?1271");
+}
+
+div.playlist_24_img_div
+{
+	background-image: url("../img/playlist-24.png?1271");
+}
+
+div.playlist_48_img_div
+{
+	background-image: url("../img/playlist-48.png?1271");
+}
+
+div.popular_24_img_div
+{
+	background-image: url("../img/popular-24.png?1271");
+}
+
+div.power_32_img_div
+{
+	background-image: url("../img/power-32.png?1271");
+}
+
+div.previous_48_img_div
+{
+	background-image: url("../img/previous-48.png?1271");
+}
+
+div.queue_24_img_div
+{
+	background-image: url("../img/queue-24.png?1271");
+}
+
+div.reload_32_img_div
+{
+	background-image: url("../img/reload-32.png?1271");
+}
+
+div.remove_24_img_div
+{
+	background-image: url("../img/remove-24.png?1271");
+}
+
+div.remove_32_img_div
+{
+	background-image: url("../img/remove-32.png?1271");
+}
+
+div.repeat_24_img_div
+{
+	background-image: url("../img/repeat-24.png?1271");
+}
+
+div.search_24_img_div
+{
+	background-image: url("../img/search-24.png?1271");
+}
+
+div.search_48_img_div
+{
+	background-image: url("../img/search-48.png?1271");
+}
+
+div.settings_48_img_div
+{
+	background-image: url("../img/settings-48.png?1271");
+}
+
+div.share_24_img_div
+{
+	background-image: url("../img/share-24.png?1271");
+}
+
+div.shuffle_24_img_div
+{
+	background-image: url("../img/shuffle-24.png?1271");
+}
+
+div.sort_24_img_div
+{
+	background-image: url("../img/sort-24.png?1271");
+}
+
+div.sorted_24_img_div
+{
+	background-image: url("../img/sorted-24.png?1271");
+}
+
+div.star_24_img_div
+{
+	background-image: url("../img/star-24.png?1271");
+}
+
+div.star_48_img_div
+{
+	background-image: url("../img/star-48.png?1271");
+}
+
+div.top_24_img_div
+{
+	background-image: url("../img/top-24.png?1271");
+}
+
+div#top_actionbar_shadow_div
+{
+	background-image: url("../img/top-actionbar-shadow-1.png?1271");
+}
+
+div.totop_24_img_div
+{
+	background-image: url("../img/totop-24.png?1271");
+}
+
+div.track_24_img_div
+{
+	background-image: url("../img/track-24.png?1271");
+}
+
+div.twitter_48_img_div
+{
+	background-image: url("../img/twitter-48.png?1271");
+}
+
+div.unstar_24_img_div
+{
+	background-image: url("../img/unstar-24.png?1271");
+}
+
+div.up_24_img_div
+{
+	background-image: url("../img/up-24.png?1271");
+}
+
+div.update_available_48_img_div
+{
+	background-image: url("../img/update-available-48.png?1271");
+}
+
+div.volume_down_32_img_div
+{
+	background-image: url("../img/volume-down-32.png?1271");
+}
+
+div.volume_mute_32_img_div
+{
+	background-image: url("../img/volume-mute-32.png?1271");
+}
+
+div.volume_up_32_img_div
+{
+	background-image: url("../img/volume-up-32.png?1271");
+}
+
+div.yes_32_img_div
+{
+	background-image: url("../img/yes-32.png?1271");
+}
+
+/* 2x images */
+
+@media screen and (min-resolution: 2dppx), screen and (-webkit-min-device-pixel-ratio: 2)
+{
+	div.add_24_img_div
+	{
+		background-image: url("../img/add-24-2x.png?1271");
+	}
+
+	div.add_32_img_div
+	{
+		background-image: url("../img/add-32-2x.png?1271");
+	}
+
+	div.album_24_img_div
+	{
+		background-image: url("../img/album-24-2x.png?1271");
+	}
+
+	div.all_24_img_div
+	{
+		background-image: url("../img/all-24-2x.png?1271");
+	}
+
+	div.browse_24_img_div
+	{
+		background-image: url("../img/browse-24-2x.png?1271");
+	}
+
+	div.browse_32_img_div
+	{
+		background-image: url("../img/browse-32-2x.png?1271");
+	}
+
+	div#cover_art_play_div
+	{
+		background-image: url("../img/play-cover-art-64-2x.png?1271");
+	}
+
+	div.discover_24_img_div
+	{
+		background-image: url("../img/discover-24-2x.png?1271");
+	}
+
+	div.discover_48_img_div
+	{
+		background-image: url("../img/discover-48-2x.png?1271");
+	}
+
+	div.down_24_img_div
+	{
+		background-image: url("../img/down-24-2x.png?1271");
+	}
+
+	div.edit_24_img_div
+	{
+		background-image: url("../img/edit-24-2x.png?1271");
+	}
+
+	div.error_64_img_div
+	{
+		background-image: url("../img/error-64-2x.png?1271");
+	}
+
+	div.facebook_48_img_div
+	{
+		background-image: url("../img/facebook-48-2x.png?1271");
+	}
+
+	div.genre_24_img_div
+	{
+		background-image: url("../img/genre-24-2x.png?1271");
+	}
+
+	div.genres_24_img_div
+	{
+		background-image: url("../img/genres-24-2x.png?1271");
+	}
+
+	div.googleplus_48_img_div
+	{
+		background-image: url("../img/googleplus-48-2x.png?1271");
+	}
+
+	div.headphones_24_img_div
+	{
+		background-image: url("../img/headphones-24-2x.png?1271");
+	}
+
+	div.history_32_img_div
+	{
+		background-image: url("../img/history-32-2x.png?1271");
+	}
+
+	div.import_24_img_div
+	{
+		background-image: url("../img/import-24-2x.png?1271");
+	}
+
+	div.import_32_img_div
+	{
+		background-image: url("../img/import-32-2x.png?1271");
+	}
+
+	div.information_64_img_div
+	{
+		background-image: url("../img/information-64-2x.png?1271");
+	}
+
+	div.internet_32_img_div
+	{
+		background-image: url("../img/internet-32-2x.png?1271");
+	}
+
+	div.loading_32_img_div
+	{
+		background-image: url("../img/loading-32-2x.gif?1271");
+	}
+
+	div.menu_32_img_div
+	{
+		background-image: url("../img/menu-32-2x.png?1271");
+	}
+
+	div.next_48_img_div
+	{
+		background-image: url("../img/next-48-2x.png?1271");
+	}
+
+	div.overflow_24_img_div
+	{
+		background-image: url("../img/overflow-24-2x.png?1271");
+	}
+
+	div.overflow_32_img_div
+	{
+		background-image: url("../img/overflow-32-2x.png?1271");
+	}
+
+	div.pause_32_img_div
+	{
+		background-image: url("../img/pause-32-2x.png?1271");
+	}
+
+	div.pause_64_img_div
+	{
+		background-image: url("../img/pause-64-2x.png?1271");
+	}
+
+	div.play_24_img_div
+	{
+		background-image: url("../img/play-24-2x.png?1271");
+	}
+
+	div.play_32_img_div
+	{
+		background-image: url("../img/play-32-2x.png?1271");
+	}
+
+	div.play_64_img_div
+	{
+		background-image: url("../img/play-64-2x.png?1271");
+	}
+
+	div.play_uri_randomly_24_img_div
+	{
+		background-image: url("../img/play-random-24-2x.png?1271");
+	}
+
+	div.playing_24_img_div
+	{
+		background-image: url("../img/playing-24-2x.png?1271");
+	}
+
+	div.playlist_24_img_div
+	{
+		background-image: url("../img/playlist-24-2x.png?1271");
+	}
+
+	div.playlist_48_img_div
+	{
+		background-image: url("../img/playlist-48-2x.png?1271");
+	}
+
+	div.popular_24_img_div
+	{
+		background-image: url("../img/popular-24-2x.png?1271");
+	}
+
+	div.power_32_img_div
+	{
+		background-image: url("../img/power-32-2x.png?1271");
+	}
+
+	div.previous_48_img_div
+	{
+		background-image: url("../img/previous-48-2x.png?1271");
+	}
+
+	div.queue_24_img_div
+	{
+		background-image: url("../img/queue-24-2x.png?1271");
+	}
+
+	div.reload_32_img_div
+	{
+		background-image: url("../img/reload-32-2x.png?1271");
+	}
+
+	div.remove_24_img_div
+	{
+		background-image: url("../img/remove-24-2x.png?1271");
+	}
+
+	div.remove_32_img_div
+	{
+		background-image: url("../img/remove-32-2x.png?1271");
+	}
+
+	div.repeat_24_img_div
+	{
+		background-image: url("../img/repeat-24-2x.png?1271");
+	}
+
+	div.search_24_img_div
+	{
+		background-image: url("../img/search-24-2x.png?1271");
+	}
+
+	div.search_48_img_div
+	{
+		background-image: url("../img/search-48-2x.png?1271");
+	}
+
+	div.settings_48_img_div
+	{
+		background-image: url("../img/settings-48-2x.png?1271");
+	}
+
+	div.share_24_img_div
+	{
+		background-image: url("../img/share-24-2x.png?1271");
+	}
+
+	div.shuffle_24_img_div
+	{
+		background-image: url("../img/shuffle-24-2x.png?1271");
+	}
+
+	div.sort_24_img_div
+	{
+		background-image: url("../img/sort-24-2x.png?1271");
+	}
+
+	div.sorted_24_img_div
+	{
+		background-image: url("../img/sorted-24-2x.png?1271");
+	}
+
+	div.star_24_img_div
+	{
+		background-image: url("../img/star-24-2x.png?1271");
+	}
+
+	div.star_48_img_div
+	{
+		background-image: url("../img/star-48-2x.png?1271");
+	}
+
+	div.top_24_img_div
+	{
+		background-image: url("../img/top-24-2x.png?1271");
+	}
+
+	div#top_actionbar_shadow_div
+	{
+		background-image: url("../img/top-actionbar-shadow-1-2x.png?1271");
+	}
+
+	div.totop_24_img_div
+	{
+		background-image: url("../img/totop-24-2x.png?1271");
+	}
+
+	div.track_24_img_div
+	{
+		background-image: url("../img/track-24-2x.png?1271");
+	}
+
+	div.twitter_48_img_div
+	{
+		background-image: url("../img/twitter-48-2x.png?1271");
+	}
+
+	div.unstar_24_img_div
+	{
+		background-image: url("../img/unstar-24-2x.png?1271");
+	}
+
+	div.up_24_img_div
+	{
+		background-image: url("../img/up-24-2x.png?1271");
+	}
+
+	div.update_available_48_img_div
+	{
+		background-image: url("../img/update-available-48-2x.png?1271");
+	}
+
+	div.volume_down_32_img_div
+	{
+		background-image: url("../img/volume-down-32-2x.png?1271");
+	}
+
+	div.volume_mute_32_img_div
+	{
+		background-image: url("../img/volume-mute-32-2x.png?1271");
+	}
+
+	div.volume_up_32_img_div
+	{
+		background-image: url("../img/volume-up-32-2x.png?1271");
+	}
+
+	div.yes_32_img_div
+	{
+		background-image: url("../img/yes-32-2x.png?1271");
+	}
+}
