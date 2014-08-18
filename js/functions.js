@@ -502,7 +502,7 @@ function showActivityOverflowActions()
 		$('div#top_actionbar_overflow_actions_div').addClass('prepare_overflow_actions_animation');
 
 		setTimeout(function()
-		{		
+		{
 			$('div#top_actionbar_overflow_actions_div').addClass('show_overflow_actions_animation');
 		}, 25);
 	}
@@ -644,7 +644,7 @@ function toggleShuffleRepeat(action)
 			else if(action == 'toggle_repeat')
 			{
 				showToast('Repeat toggled', 2);
-			}		
+			}
 		});
 	}
 }
@@ -798,7 +798,7 @@ function showNowplayingOverflowActions()
 		$('div#nowplaying_actionbar_overflow_actions_div').addClass('prepare_overflow_actions_animation');
 
 		setTimeout(function()
-		{		
+		{
 			$('div#nowplaying_actionbar_overflow_actions_div').addClass('show_overflow_actions_animation');
 		}, 25);
 	}
@@ -907,6 +907,16 @@ function refreshNowplaying(type)
 
 			$('div#nowplaying_artist_div').attr('title', nowplaying.artist).html(hsc(nowplaying.artist));
 			$('div#nowplaying_title_div').attr('title', nowplaying.title+' ('+nowplaying.tracklength+')').html(hsc(nowplaying.title));
+
+			// Change lyrics title and body
+			$("#lyrics_div").html("<i>fetching lyrics ..</i>");
+			$("#top_actionbar_inner_center_div").html(nowplaying.title);
+
+			// Change lyrics automatically
+			var lyricsFor = "artist=" + encodeURIComponent(nowplaying.artist) + "&title=" + encodeURIComponent(nowplaying.title);
+			$.get("lyrics.php", lyricsFor, function() {})
+					.done(function(data) {$("#lyrics_div").html(data);})
+					.fail(function() {console.log("Unable to fetch lyrics");});
 
 			$('input#nowplaying_volume_slider').val(nowplaying.current_volume);
 			$('span#nowplaying_volume_level_span').html(nowplaying.current_volume);
