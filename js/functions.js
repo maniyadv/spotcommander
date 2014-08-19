@@ -914,9 +914,13 @@ function refreshNowplaying(type)
 
 			// Change lyrics automatically
 			var lyricsFor = "artist=" + encodeURIComponent(nowplaying.artist) + "&title=" + encodeURIComponent(nowplaying.title);
-			$.get("lyrics.php", lyricsFor, function() {})
-					.done(function(data) {$("#lyrics_div").html(data);})
-					.fail(function() {console.log("Unable to fetch lyrics");});
+			$.get("lyrics.php", lyricsFor, function() {
+			   })
+				 .done(function(data) {
+						$("#lyrics_div").html(data);
+					})
+					.fail(function() {console.log("Unable to fetch lyrics");
+					});
 
 			$('input#nowplaying_volume_slider').val(nowplaying.current_volume);
 			$('span#nowplaying_volume_level_span').html(nowplaying.current_volume);
