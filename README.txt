@@ -1,18 +1,9 @@
-HOW TO INSTALL:
-
-http://www.olejon.net/code/spotcommander/?install
-
-HOW TO UPGRADE:
-
-http://www.olejon.net/code/spotcommander/?upgrade
-
 UPGRADE NOTES:
 
  * Close SpotCommander completely on all your devices before upgrading
  * Android users: Make sure you are running v 3.5 or newer of the Android app
  * iOS users: If you are upgrading from v 8.8 or older, you should re-add to home screen
  * If you are upgrading from v 8.8 or older, make sure you reload/refresh the web app at least twice on every device
- * If stuck, you should clear the application cache: http://www.olejon.net/code/spotcommander/?clear_application_cache
 
 CHANGELOG:
 
@@ -44,8 +35,6 @@ KNOWN ISSUES:
  * Playlists belonging to users with certain special characters in their username can not be browsed. Bug verified by Spotify.
 
 LICENSE:
-
-Copyright 2014 Ole Jon Bjørkum
 
 SpotCommander is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
